@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food-order-ai</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <form onsubmit="sendData(event)">
+      <label for="input">Order</label><br />
+      <textarea name="input" id="input" rows="5"></textarea>
+      <button type="submit">check</button>
+    </form>
+    <div id="responseDiv"></div>
+    <script>
+      function sendData(e) {
+        //stop being reload when form submitted
+        e.preventDefault();
+        //getting value from input
+        const inputText = document.getElementById("input").value;
+        //send the input to backend server
+        axios
+          .post("http://localhost:3001/", { input: inputText })
+          .then(function (response) {
+            console.log(response);
+            document.getElementById("responseDiv").innerHTML = response.data;
+          })
+          .catch(function (error) {
+            console.error(error);
+            document.getElementById(
+              "responseDiv"
+            ).innerHTML = `<p>Error: ${error.message}</p>`;
+          });
+      }
+    </script>
+  </body>
+</html>
