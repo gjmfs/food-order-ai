@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv").config();
-const bodyParser = require("body-parser");
 const fs = require("fs"); // Import the file system module
 const path = require("path"); // Import the path module
 const app = express();
