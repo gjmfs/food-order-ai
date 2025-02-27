@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
-const { type } = require("os");
+
 const orderSchema = new mongoose.Schema({
   food: {
     type: String,
     required: true,
   },
   quantity: {
-    type: String,
+    type: Number,
     required: true,
+    min: 1,
   },
   ingredients: {
     type: String,

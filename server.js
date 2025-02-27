@@ -64,22 +64,21 @@ app.post("/", async (req, res) => {
     user_request = JSON.parse(match[0]); // This will convert the string into an object
   }
 
-  console.log(user_request.food);
-  console.log(user_request.quantity);
+  console.log("Food requested:", user_request.food);
+  console.log("Quantity requested:", user_request.quantity);
 
-  check_food = await food
-    .findOne({
-      food: user_request.food,
-      quantity: { $gte: user_request.quantity },
-    })
-    .then((data) => {
-      console.log("Food item found");
-      res.json("Food item found");
-    })
-    .catch((e) => {
-      console.log(e);
-      res.json("Food item not found on the list");
-    });
+  check_food = await food.findOne({
+    food: user_request.food,
+    quantity: { $gte: user_request.quantity },
+  });
+
+  if (check_food) {
+    console.log("Food item found:");
+    res.json("Food exisit");
+  } else {
+    console.log("Food item not found.");
+    res.json("Food item not found on the list");
+  }
 });
 
 mongoose.connect(process.env.db).then(() => {
